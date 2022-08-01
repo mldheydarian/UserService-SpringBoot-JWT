@@ -26,7 +26,7 @@ public class User {
     @Column (name = "user_password", nullable = false, length = 50)
     private String userPassword;
     @Column (name = "active")
-    private int active;
+    private Boolean active;
 
     @OneToOne (cascade = CascadeType.ALL)
     @JoinColumn (name = "user_details_id")

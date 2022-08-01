@@ -27,4 +27,6 @@ public class UserRole {
     @OneToMany(mappedBy = "role")
     @JsonIgnore
     private List<User> users;
+
+    //TODO:CHANGE CARDINALITY USERROLE TO MANYTOONE
 }
