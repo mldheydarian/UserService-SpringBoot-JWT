@@ -23,6 +23,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+
     @Autowired
     private UserRoleRepository userRoleRepository;
 
@@ -30,7 +32,7 @@ public class UserServiceImpl implements UserService {
     public User getUserById(Long id) {
         log.info("UserServise:Fetch All User");
         return userRepository.findById(id).orElseThrow(
-                ()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+                ()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not foundxxx"));
     }
 
     @Override
