@@ -21,14 +21,14 @@ public class User {
 
     @Column (name = "user_name", nullable = false, unique = true, length = 50)
     private String userName;
-    @Column (name = "user_password", nullable = false, length = 50)
-    private String userPassword;
+    @Column (name = "user_password", nullable = false, length = 255)
+    private String  Password;
     @Column (name = "active")
     private Boolean active;
 
     @OneToOne (cascade = CascadeType.ALL)
     @JoinColumn (name = "user_details_id")
-    private UserDetail userDetails;
+    private Customer customer;
 
     @ManyToOne
     @JoinColumn (name = "role_id")

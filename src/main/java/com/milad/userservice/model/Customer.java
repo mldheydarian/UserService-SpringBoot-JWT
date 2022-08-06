@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 
-public class UserDetail {
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
