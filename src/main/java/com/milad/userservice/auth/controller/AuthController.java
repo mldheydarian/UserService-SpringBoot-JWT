@@ -1,11 +1,12 @@
-package com.milad.userservice.resource;
+package com.milad.userservice.auth.controller;
 
-import com.milad.userservice.dto.UserAuthenticationRequestDto;
-import com.milad.userservice.dto.UserAuthenticationResponseDto;
+import com.milad.userservice.auth.model.AuthenticationRequest;
+import com.milad.userservice.auth.model.AuthenticationResponse;
+import com.milad.userservice.auth.util.JwtUtil;
 import com.milad.userservice.model.User;
-import com.milad.userservice.security.JwtTokenUtil;
+import com.milad.userservice.auth.util.impl.JwtUtilImpl;
 import com.milad.userservice.service.UserService;
-import com.milad.userservice.service.impl.CustomUserDetailsService;
+import com.milad.userservice.auth.service.CustomUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +20,9 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/auth")
 @Slf4j
-public class AuthenticationResource {
+public class AuthController {
     @Autowired
     AuthenticationManager authenticationManager;
     @Autowired
@@ -29,23 +30,23 @@ public class AuthenticationResource {
     @Autowired
     CustomUserDetailsService customUserDetailsService;
     @Autowired
-    JwtTokenUtil jwtTokenUtil;
+    JwtUtil jwtUtils;
 
 
-    @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody User user) {
+    @PostMapping("/singup")
+    public ResponseEntity<User> singup(@RequestBody User user) {
         userService.save(user);
         return ResponseEntity.status(200).body(user);
     }
 
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UserAuthenticationRequestDto userAuthReqDto) throws Exception {
+    @PostMapping("/singin")
+    public ResponseEntity<?> singin(@RequestBody AuthenticationRequest userAuthReqDto) throws Exception {
         // First step checks user credential
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userAuthReqDto.getUsername(), userAuthReqDto.getPassword()));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Incorrect Username and Password");
+            return ResponseEntity.badRequest().body("Login failed /n" + e.getMessage());
         }
 
         // If User exists in context then
@@ -53,8 +54,8 @@ public class AuthenticationResource {
         // and then Generate a new JWT token and send it to user
         try {
             final UserDetails userDetails = customUserDetailsService.loadUserByUsername(userAuthReqDto.getUsername());
-            final String token = jwtTokenUtil.generateToken(userDetails);
-            return ResponseEntity.ok(new UserAuthenticationResponseDto(token));
+            final String token = jwtUtils.generateToken(userDetails);
+            return ResponseEntity.ok(new AuthenticationResponse(token));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Something went wrong in token generating part/n"+e.getMessage());
         }
@@ -62,16 +63,23 @@ public class AuthenticationResource {
 
     }
 
-    @GetMapping("/users/info")
-    public  String getLoginedUser(){
+
+    @PostMapping("/signoutX")
+    public String logoutUser() {
+        return "Under Constraction";
+        //TODO:complete singuot
+    }
+
+    @GetMapping("/profile1")
+    public  String getUserInfo1(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         return currentPrincipalName;
        }
 
-    @RequestMapping(value = "/username", method = RequestMethod.GET)
+    @GetMapping(value = "/profile2")
     @ResponseBody
-    public String currentUserName(Principal principal) {
+    public String getUserInfo2(Principal principal) {
         return principal.getName();
     }
 

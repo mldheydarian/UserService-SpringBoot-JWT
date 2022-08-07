@@ -1,6 +1,6 @@
-package com.milad.userservice.security;
-
-import com.milad.userservice.service.impl.CustomUserDetailsService;
+package com.milad.userservice.auth.filter;
+import com.milad.userservice.auth.util.JwtUtil;
+import com.milad.userservice.auth.service.CustomUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +25,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     private CustomUserDetailsService jwtUserDetailsService;
 
     @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+    private JwtUtil jwtUtil;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
@@ -41,13 +40,15 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
             jwtToken = requestTokenHeader.substring(7);
             try {
-                username = jwtTokenUtil.getUsernameFromToken(jwtToken);
+                username = jwtUtil.extractUsername(jwtToken);
             } catch (IllegalArgumentException e) {
-                System.out.println("Unable to get JWT Token");
+                log.warn("Unable to get JWT Token");
             } catch (ExpiredJwtException e) {
-                System.out.println("JWT Token has expired");
+                log.warn("JWT Token has expired" + e.getMessage());
+            } catch (RuntimeException ex) {
+                log.warn("JWT Token err" + ex.getMessage());
             }
-        } else {
+        }else {
             log.warn("JWT Token does not begin with Bearer String");
         }
 
@@ -58,7 +59,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
             // if token is valid configure Spring Security to manually set
             // authentication
-            if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
+            if (jwtUtil.validateToken(jwtToken, userDetails)) {
 
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());

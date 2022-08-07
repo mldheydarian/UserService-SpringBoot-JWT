@@ -1,10 +1,9 @@
 package com.milad.userservice.security;
 
-import com.milad.userservice.service.impl.CustomUserDetailsService;
+import com.milad.userservice.auth.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,7 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
@@ -25,7 +23,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Autowired
     CustomUserDetailsService customUserDetailsService;
     @Autowired
-    private JwtAuthorizationFilter JwtAuthorizationFilter;
+    private com.milad.userservice.auth.filter.JwtAuthorizationFilter JwtAuthorizationFilter;
 
 
     @Override
@@ -43,11 +41,11 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests()
-                .antMatchers("/api/login","/api/register").permitAll()// login is default define in spring security context
-                .antMatchers("/api/user/**").hasAuthority("ROLE_ADMIN")
-                .antMatchers("/api/hellowuser/**").hasAuthority("ROLE_USER")
-                .anyRequest().authenticated();//full access to all of user
-
+                .antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/api/users/**").hasAuthority("ROLE_ADMIN")
+                .antMatchers("/api/users/hellow").hasAuthority("ROLE_USER")
+                .anyRequest().authenticated()//full access to all of user
+                .and().logout().logoutUrl("/api/auth/singout");
 
 
         http.addFilterBefore(JwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);

@@ -1,4 +1,4 @@
-package com.milad.userservice.service.impl;
+package com.milad.userservice.auth.service;
 
 import com.milad.userservice.model.User;
 import com.milad.userservice.repository.UserRepository;
@@ -25,7 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findUserByUserName(username); // fetch user by email is beeter
         if (user != null && user.getActive()) {
-            log.info("User Found in database dadash.");
+            log.info("User Found in database.");
             return org.springframework.security.core.userdetails.User
                     .withUsername(username)
                     .password(user.getPassword())
@@ -33,6 +33,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             // return new org.springframework.security.core.userdetails.User(user.getUserName(),user.getUserPassword()));
 
         } else {
+            log.info("My login Exception.");
             throw new UsernameNotFoundException("Authentication of user is failed.");
         }
     }

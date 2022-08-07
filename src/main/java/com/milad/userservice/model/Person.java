@@ -6,15 +6,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-@Table(name = "users_details")
+@Table(name = "person")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 
-public class Customer {
+public class Person implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,5 +30,10 @@ public class Customer {
     private String phoneNumber;
     @Column (name = "street", length = 30)
     private String street;
+
+    @OneToOne (cascade = CascadeType.ALL)
+    @JoinColumn (name = "user_id",nullable = false)
+    //TODO:fix nullable
+    private User user;
 
 }

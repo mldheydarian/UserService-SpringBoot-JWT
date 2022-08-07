@@ -1,4 +1,4 @@
-package com.milad.userservice.dto;
+package com.milad.userservice.auth.model;
 
 
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserAuthenticationRequestDto {
+public class AuthenticationRequest {
 
     private String username;
     private String password;
