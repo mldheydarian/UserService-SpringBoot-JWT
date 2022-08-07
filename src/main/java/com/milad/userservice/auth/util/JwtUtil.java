@@ -11,5 +11,5 @@ public interface JwtUtil {
     Date extractExpirationDate(String token);
     <T> T extractClaim(String token, Function<Claims, T> claimsResolver);
     String generateToken(UserDetails userDetails);
-     Boolean validateToken(String token, UserDetails userDetails);
+    Boolean validateToken(String token, UserDetails userDetails);
 }

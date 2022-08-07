@@ -67,6 +67,7 @@ public class AuthController {
     @PostMapping("/signoutX")
     public String logoutUser() {
         return "Under Constraction";
+
         //TODO:complete singuot
     }
 
