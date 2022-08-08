@@ -33,24 +33,23 @@ public class AuthController {
     JwtUtil jwtUtils;
 
 
-    @PostMapping("/singup")
+    @PostMapping("/signup")
     public ResponseEntity<User> singup(@RequestBody User user) {
         userService.save(user);
         return ResponseEntity.status(200).body(user);
     }
 
 
-    @PostMapping("/singin")
+    @PostMapping("/signin")
     public ResponseEntity<?> singin(@RequestBody AuthenticationRequest userAuthReqDto) throws Exception {
-        // First step checks user credential
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userAuthReqDto.getUsername(), userAuthReqDto.getPassword()));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Login failed /n" + e.getMessage());
+            return ResponseEntity.badRequest().body("Login failed: \n" + e.getMessage());
         }
 
         // If User exists in context then
-        // add user in security context???? by UserDetailsService loadUserByUsername() ???
+        // add fetch user in security context by UserDetailsService loadUserByUsername() ???
         // and then Generate a new JWT token and send it to user
         try {
             final UserDetails userDetails = customUserDetailsService.loadUserByUsername(userAuthReqDto.getUsername());
@@ -64,23 +63,23 @@ public class AuthController {
     }
 
 
-    @PostMapping("/signoutX")
+    @PostMapping("/signout")
     public String logoutUser() {
         return "Under Constraction";
 
         //TODO:complete singuot
     }
 
-    @GetMapping("/profile1")
-    public  String getUserInfo1(){
+    @GetMapping("/me")
+    public  String whoAmI(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         return currentPrincipalName;
        }
 
-    @GetMapping(value = "/profile2")
+    @GetMapping(value = "/myprofile")
     @ResponseBody
-    public String getUserInfo2(Principal principal) {
+    public String myProfile(Principal principal) {
         return principal.getName();
     }
 

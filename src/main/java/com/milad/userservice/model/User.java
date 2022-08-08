@@ -1,6 +1,8 @@
 package com.milad.userservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,6 +24,7 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonProperty(value = "username")
     @Column (name = "user_name", nullable = false, unique = true, length = 50)
     private String userName;
     @Column (name = "password", nullable = false, length = 250)
