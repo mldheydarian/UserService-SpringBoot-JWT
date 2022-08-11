@@ -1,8 +1,8 @@
 package com.milad.userservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,12 +16,13 @@ import java.io.Serializable;
 @Setter
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Builder
-public class User implements Serializable {
+public class User extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id", unique = true, nullable = false, updatable = false)
     private Long id;
 
     @JsonProperty(value = "username")
@@ -32,7 +33,14 @@ public class User implements Serializable {
     @Column (name = "active")
     private Boolean active;
 
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn (name = "role_id")
+    @JoinColumn (name = "role_id", nullable = false)
     private Role role;
+
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "personality_id", nullable = false)
+    //TODO:fix nullable
+    public Personality personality;
 }

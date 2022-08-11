@@ -3,6 +3,7 @@ package com.milad.userservice.auth.controller;
 import com.milad.userservice.auth.model.AuthenticationRequest;
 import com.milad.userservice.auth.model.AuthenticationResponse;
 import com.milad.userservice.auth.util.JwtUtil;
+import com.milad.userservice.dto.UserDto;
 import com.milad.userservice.model.User;
 import com.milad.userservice.auth.util.impl.JwtUtilImpl;
 import com.milad.userservice.service.UserService;
@@ -34,9 +35,9 @@ public class AuthController {
 
 
     @PostMapping("/signup")
-    public ResponseEntity<User> singup(@RequestBody User user) {
-        userService.save(user);
-        return ResponseEntity.status(200).body(user);
+    public ResponseEntity<UserDto> singup(@RequestBody UserDto userDto) {
+        userService.save(userDto);
+        return ResponseEntity.status(200).body(userDto);
     }
 
 

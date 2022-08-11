@@ -18,15 +18,15 @@ import java.util.function.Function;
 @Component
 public class JwtUtilImpl implements JwtUtil, Serializable {
 
-    public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60 *1000;
+    private static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60 *1000;
 
-    @Value("${security.jwt.token.secret-key}")
-    private String secretKey;
 
-    @PostConstruct
-    protected void init() {
-        secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
-    }
+    private static  final String secretKey="milad";
+
+//    @PostConstruct
+//    protected void init() {
+//        secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
+//    }
 
 
     //retrieve username from jwt token

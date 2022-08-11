@@ -77,7 +77,7 @@ class UserResourceTest {
     void getUserById_whenUsersisExist_ShouldReturnUser()
     {
        // Mockito.when(userService.getUserById(1l)).thenReturn(dumpUser);
-        ResponseEntity<User> user = userResource.getUserbyId(1l);
+        ResponseEntity<User> user = userResource.getUserById(1l);
         Assertions.assertEquals(user.getBody().getUserName(),dumpUser.getUserName());
         Assertions.assertEquals(user.getBody().getId(),dumpUser.getId());
 
