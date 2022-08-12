@@ -1,5 +1,7 @@
 package com.milad.userservice.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.io.Serializable;
@@ -11,12 +13,13 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-public class RoleDto  implements Serializable {
+public class RoleDto   {
 
-    private Long id;
+    private Long roleId;
 
     private String roleName;
 
+    @JsonProperty("users")
     private List<UserDto> usersDtos;
 
 

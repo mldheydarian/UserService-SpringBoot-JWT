@@ -23,9 +23,9 @@ public class User extends BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", unique = true, nullable = false, updatable = false)
-    private Long id;
+    private Long userId;
 
-    @JsonProperty(value = "username")
+
     @Column (name = "user_name", nullable = false, unique = true, length = 50)
     private String userName;
     @Column (name = "password", nullable = false, length = 250)
@@ -33,14 +33,15 @@ public class User extends BaseEntity implements Serializable {
     @Column (name = "active")
     private Boolean active;
 
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn (name = "role_id", nullable = false)
     private Role role;
 
-    @JsonIgnore
-    @OneToOne(fetch = FetchType.LAZY)
+    //in cascade bod ke save nemikard
+
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "personality_id", nullable = false)
     //TODO:fix nullable
-    public Personality personality;
+    private Personality personality;
 }

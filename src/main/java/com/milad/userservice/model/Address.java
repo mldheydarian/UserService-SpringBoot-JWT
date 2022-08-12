@@ -31,9 +31,10 @@ public final class Address extends BaseEntity implements Serializable {
 	private String postalCode;
 
 	private String city;
-	
+
+
 	@ManyToOne
-	@JoinColumn(name = "personality_id")
+	@JoinColumn( name = "personality_id" )
 	private Personality personality;
 	
 }

@@ -1,4 +1,4 @@
-package com.milad.userservice.model.mapper;
+package com.milad.userservice.dto.mapper;
 
 import com.milad.userservice.dto.PersonalityDto;
 import com.milad.userservice.model.Personality;
@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public interface PersonalityMapping {
 
-    public static PersonalityDto getDto(Personality personality){
+     static PersonalityDto getDto(final Personality personality){
         return PersonalityDto.builder()
                 .firstName(personality.getFirstName())
                 .lastName(personality.getLastName())
@@ -23,7 +23,7 @@ public interface PersonalityMapping {
                 //TODO:For pressent
     }
 
-    public static Personality getEntity(PersonalityDto personalityDto){
+     static Personality getEntity(final PersonalityDto personalityDto){
         return Personality.builder()
                 .firstName(personalityDto.getFirstName())
                 .lastName(personalityDto.getLastName())

@@ -11,10 +11,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Getter @Setter
 @Builder
-public final class AddressDto implements Serializable {
+public  class AddressDto  {
 	
-	private static final long serialVersionUID = 1L;
-
 
 	private String tittle;
 

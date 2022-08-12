@@ -36,6 +36,7 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<UserDto> singup(@RequestBody UserDto userDto) {
+
         userService.save(userDto);
         return ResponseEntity.status(200).body(userDto);
     }

@@ -13,7 +13,9 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-public class PersonalityDto implements Serializable {
+public class PersonalityDto {
+
+    private long personalityId;
 
     private String firstName;
 
@@ -25,10 +27,11 @@ public class PersonalityDto implements Serializable {
 
     private String phone;
 
+    @JsonProperty("addresses")
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private List<AddressDto> addressesDtos;
 
-    @JsonProperty("personality")
+    @JsonProperty("Users")
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private UserDto UsersDto;
 

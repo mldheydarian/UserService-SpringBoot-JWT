@@ -1,10 +1,10 @@
 package com.milad.userservice.service.impl;
 
 import com.milad.userservice.dto.UserDto;
+import com.milad.userservice.dto.mapper.RoleMapping;
 import com.milad.userservice.exception.wrapper.UserModelNotFoundException;
-import com.milad.userservice.model.Role;
 import com.milad.userservice.model.User;
-import com.milad.userservice.model.mapper.UserMapping;
+import com.milad.userservice.dto.mapper.UserMapping;
 import com.milad.userservice.repository.RoleRepository;
 import com.milad.userservice.repository.UserRepository;
 import com.milad.userservice.service.UserService;
@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private RoleRepository RoleRepository;
+    private RoleRepository roleRepository;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
@@ -42,7 +42,6 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
     @Override
     public List<UserDto> getAllUsers() {
         return userRepository.findAll()
@@ -54,15 +53,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto save(UserDto userDto) {
-            User user = new User();
 
-            user = UserMapping.getEntity(userDto);
-        user.setActive(true);
-            Role role = RoleRepository.findRoleByRoleName("ROLE_USER");
-            //TODO:USER ROLE SHUOLD BE SET IN USER
-        user.setRole(role);
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        userDto.setActive(true);
+        userDto.setRoleDto(RoleMapping.getDto(roleRepository.findRoleByRoleName("ROLE_USER")));
+        User user = UserMapping.getEntity(userDto);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-            return UserMapping.getDto(userRepository.save(user));
+
+       return UserMapping.getDto(userRepository.save(user));
     }
 }

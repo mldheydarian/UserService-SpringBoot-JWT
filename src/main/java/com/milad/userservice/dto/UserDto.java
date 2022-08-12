@@ -12,8 +12,9 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Builder
-public class UserDto implements Serializable {
+public class UserDto  {
 
+    private Long userId;
 
     private String userName;
 
@@ -21,6 +22,7 @@ public class UserDto implements Serializable {
 
     private Boolean active;
 
+    @JsonProperty("role")
     private RoleDto roleDto;
 
     @JsonProperty("personality")

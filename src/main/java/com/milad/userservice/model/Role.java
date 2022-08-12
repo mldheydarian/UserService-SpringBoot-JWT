@@ -20,12 +20,12 @@ public class Role extends BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_id", unique = true, nullable = false, updatable = false)
-    private Long id;
+    private Long roleId;
 
     @Column(name = "role_name")
     private String roleName;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "role")
     private List<User> users;
 

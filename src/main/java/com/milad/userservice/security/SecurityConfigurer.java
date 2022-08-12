@@ -75,4 +75,9 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+    public static void main(String[] args) {
+        BCryptPasswordEncoder passEncoder = new BCryptPasswordEncoder();
+        System.out.println(passEncoder.encode("1234"));
+    }
+
 }

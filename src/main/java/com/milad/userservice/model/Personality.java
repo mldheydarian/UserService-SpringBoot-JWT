@@ -21,7 +21,7 @@ public class Personality extends BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "personality_id", unique = true, nullable = false, updatable = false)
-    private Integer personalityId;
+    private Long personalityId;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -38,11 +38,11 @@ public class Personality extends BaseEntity implements Serializable {
 
     private String phone;
 
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personality", fetch = FetchType.LAZY)
+
+    @OneToMany(mappedBy = "personality", fetch = FetchType.LAZY)
     private List<Address> addresses;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "personality")
+    @OneToOne(mappedBy = "personality" , fetch = FetchType.LAZY)
     private User user;
 
 

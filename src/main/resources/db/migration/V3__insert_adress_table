@@ -1,0 +1,5 @@
+insert into address
+    ( city, full_address, postal_code, tittle, personality_id)
+values
+       ('tehran','shahin','222','Home',1),
+       ('sanandaj','gh','333','Home',1);

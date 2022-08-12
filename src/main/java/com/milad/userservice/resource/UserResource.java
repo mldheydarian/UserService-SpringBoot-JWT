@@ -35,9 +35,9 @@ public class UserResource {
 
     @GetMapping()
     public ResponseEntity<List<UserDto>> getAllUsers(){
-        List<UserDto> users =  userService.getAllUsers();
-        if(!users.isEmpty()) {
-            return new ResponseEntity<>(users,HttpStatus.ACCEPTED);
+        List<UserDto> userDtos =  userService.getAllUsers();
+        if(!userDtos.isEmpty()) {
+            return new ResponseEntity<>(userDtos,HttpStatus.ACCEPTED);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
