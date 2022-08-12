@@ -1,7 +1,8 @@
 package com.milad.userservice.service.impl;
 
+import com.milad.userservice.dto.RoleDto;
+import com.milad.userservice.dto.mapper.RoleMapping;
 import com.milad.userservice.model.Role;
-import com.milad.userservice.model.User;
 import com.milad.userservice.repository.RoleRepository;
 import com.milad.userservice.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Transactional
 @Service
 @Slf4j
@@ -25,8 +28,11 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public List<Role> getAllRoles() {
-        return RoleRepository.findAll();
+    public List<RoleDto> getAllRoles() {
+        return  RoleRepository.findAll()
+                        .stream()
+                        .map(role -> RoleMapping.getDto(role))
+                        .collect(Collectors.toList());
     }
 
     @Override

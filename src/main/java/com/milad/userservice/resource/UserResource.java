@@ -1,6 +1,5 @@
 package com.milad.userservice.resource;
 
-
 import com.milad.userservice.dto.UserDto;
 import com.milad.userservice.model.User;
 import com.milad.userservice.service.UserService;
@@ -32,8 +31,7 @@ public class UserResource {
 
     }
 
-
-    @GetMapping()
+   @GetMapping("")
     public ResponseEntity<List<UserDto>> getAllUsers(){
         List<UserDto> userDtos =  userService.getAllUsers();
         if(!userDtos.isEmpty()) {

@@ -57,7 +57,7 @@ public class AuthController {
             final UserDetails userDetails = customUserDetailsService.loadUserByUsername(userAuthReqDto.getUsername());
             final String token = jwtUtils.generateToken(userDetails);
             return ResponseEntity.ok(new AuthenticationResponse(token));
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body("Something went wrong in token generating part/n"+e.getMessage());
         }
 

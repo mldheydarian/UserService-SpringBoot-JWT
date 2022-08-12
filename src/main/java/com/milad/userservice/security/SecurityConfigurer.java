@@ -44,10 +44,10 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
-                .antMatchers("/api/users/**").hasAuthority("ROLE_ADMIN")
-                .antMatchers("/api/users/hellow").hasAuthority("ROLE_USER")
-                .anyRequest().authenticated()//full access to all of user
-                .and().logout().logoutUrl("/api/auth/singout");
+                .antMatchers("/api/users/**").hasAnyAuthority("ROLE_ADMIN","ROLE_USER")
+                .antMatchers("/api/role/**").hasAuthority("ROLE_ADMIN")
+                .anyRequest().authenticated();//full access to all of user
+
 
 
         http.addFilterBefore(JwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);

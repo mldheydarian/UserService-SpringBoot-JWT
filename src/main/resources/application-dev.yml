@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:h2:mem:user-service-db;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:mem:user-service-db;
     driverClassName: org.h2.Driver
     username: sa
     password:
@@ -14,7 +14,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
@@ -26,7 +26,7 @@ spring:
     user: sa
     password:
     group: true
-    enabled: false
+    enabled: true
     baseline-on-migrate: true
 logging:
   level:

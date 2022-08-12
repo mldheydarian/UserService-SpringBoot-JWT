@@ -21,10 +21,12 @@ spring:
     user: root
     password: 123456
     group: true
-    enabled: false
+    enabled: false #shuld be false in prod#
     baseline-on-migrate: true
 
 logging:
+  file:
+    name: src/main/resources/script/prod_log.log
   level:
     org:
       hibernate:

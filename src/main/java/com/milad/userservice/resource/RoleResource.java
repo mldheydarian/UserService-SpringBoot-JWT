@@ -1,49 +1,44 @@
 package com.milad.userservice.resource;
 
+import com.milad.userservice.dto.RoleDto;
+import com.milad.userservice.dto.UserDto;
 import com.milad.userservice.exception.wrapper.UserModelNotFoundException;
 import com.milad.userservice.model.Role;
-<<<<<<< HEAD
+
 import com.milad.userservice.model.User;
 import com.milad.userservice.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-=======
+
 import com.milad.userservice.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
->>>>>>> init/exception-handling
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/roles")
+@RequestMapping("/api/role")
 @Slf4j
 public class RoleResource {
 
     @Autowired
   RoleService roleService;
 
-//    @GetMapping()
-//    public ResponseEntity<List<Role>> getAllRole() {
-//        List<Role> roles = roleService.getAllRoles();
-//        if (!roles.isEmpty()) {
-//            return new ResponseEntity<>(rolse, HttpStatus.ACCEPTED);
-//        }
-//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//    }
-
 
     @GetMapping()
-    public List<Role> getAllRole() {
-        List<Role> roles = roleService.getAllRoles();
-        if (!roles.isEmpty()) {
-            return roles;
+    @ResponseBody
+    public ResponseEntity<List<RoleDto>> getAllRole() {
+        List<RoleDto> roleDtos = roleService.getAllRoles();
+        if (!roleDtos.isEmpty()) {
+            return new ResponseEntity<>(roleDtos,HttpStatus.ACCEPTED);
         }
-        throw new UserModelNotFoundException("dfdf");
+        throw new UserModelNotFoundException("find all Roles  failed!");
     }
 }
