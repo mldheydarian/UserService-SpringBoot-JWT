@@ -34,9 +34,9 @@ public final class Address extends BaseEntity implements Serializable {
 
 
 	@ManyToOne
-	@JoinColumn( name = "personality_id" )
+	@JoinColumn( name = "personality_id",nullable = false )
 	private Personality personality;
-	
+
 }
 
 

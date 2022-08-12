@@ -18,19 +18,19 @@ import java.time.ZonedDateTime;
 public class APIExceptionHandler {
 
 
-    @ExceptionHandler(RuntimeException.class)
-    public <T extends Exception> ResponseEntity<ExceptionPayload> handleValidationException(final T e) {
-
-        log.error("**ApiExceptionHandler controller, handle validation exception*\n");
-            return new ResponseEntity<>(
-                ExceptionPayload.builder()
-                        .msg("ExeptionHandler say:" + e.getMessage() + "\n"+
-                              "Cause:"+e.getCause()+"\n"
-                                )
-                        .httpStatus(HttpStatus.BAD_REQUEST)
-                        .timestamp(ZonedDateTime.now(ZoneId.systemDefault()))
-                        .build(), HttpStatus.BAD_REQUEST);
-    }
+//    @ExceptionHandler(RuntimeException.class)
+//    public <T extends Exception> ResponseEntity<ExceptionPayload> handleValidationException(final T e) {
+//
+//        log.error("**ApiExceptionHandler controller, handle validation exception*\n");
+//            return new ResponseEntity<>(
+//                ExceptionPayload.builder()
+//                        .msg("ExeptionHandler say:" + e.getMessage() + "\n"+
+//                              "Cause:"+e.getCause()+"\n"
+//                                )
+//                        .httpStatus(HttpStatus.BAD_REQUEST)
+//                        .timestamp(ZonedDateTime.now(ZoneId.systemDefault()))
+//                        .build(), HttpStatus.BAD_REQUEST);
+//    }
 
 
 
