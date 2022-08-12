@@ -1,15 +1,14 @@
 package com.milad.userservice.service;
 
-import com.milad.userservice.model.User;
-import org.springframework.http.ResponseEntity;
+import com.milad.userservice.dto.UserDto;
 
 import java.util.List;
 
 public interface UserService {
 
-     User getUserById(Long id);
+     UserDto getUserById(Long id);
 
-     List<User> getAllUsers();
+     List<UserDto> getAllUsers();
 
-     ResponseEntity<String> save(User user);
+     UserDto save(UserDto UserDto);
 }

@@ -49,7 +49,7 @@ class UserResourceTest {
     void getUserById_whenUsersisExist_ShouldReturn200() throws Exception {
         //given
         User user = new User();
-        user.setId(1l);
+        user.setUserId(1l);
         user.setUserName("mili");
         //when
        // Mockito.when(userService.getUserById(1l)).thenReturn(user);
@@ -69,7 +69,7 @@ class UserResourceTest {
     static void userDump ()
     {
         dumpUser = User.builder()
-                .id(1l)
+                .userId(1l)
                 .userName("ahmad")
                 .build();
     }
@@ -77,9 +77,9 @@ class UserResourceTest {
     void getUserById_whenUsersisExist_ShouldReturnUser()
     {
        // Mockito.when(userService.getUserById(1l)).thenReturn(dumpUser);
-        ResponseEntity<User> user = userResource.getUserbyId(1l);
+        ResponseEntity<User> user = userResource.getUserById(1l);
         Assertions.assertEquals(user.getBody().getUserName(),dumpUser.getUserName());
-        Assertions.assertEquals(user.getBody().getId(),dumpUser.getId());
+        Assertions.assertEquals(user.getBody().getUserId(),dumpUser.getUserId());
 
     }
 

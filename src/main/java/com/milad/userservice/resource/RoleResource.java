@@ -2,12 +2,18 @@ package com.milad.userservice.resource;
 
 import com.milad.userservice.exception.wrapper.UserModelNotFoundException;
 import com.milad.userservice.model.Role;
+<<<<<<< HEAD
 import com.milad.userservice.model.User;
 import com.milad.userservice.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+=======
+import com.milad.userservice.service.RoleService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+>>>>>>> init/exception-handling
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

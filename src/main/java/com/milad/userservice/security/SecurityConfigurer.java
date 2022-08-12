@@ -39,9 +39,11 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
+        http.headers().frameOptions().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests()
                 .antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/api/users/**").hasAuthority("ROLE_ADMIN")
                 .antMatchers("/api/users/hellow").hasAuthority("ROLE_USER")
                 .anyRequest().authenticated()//full access to all of user
@@ -73,4 +75,9 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+    public static void main(String[] args) {
+        BCryptPasswordEncoder passEncoder = new BCryptPasswordEncoder();
+        System.out.println(passEncoder.encode("1234"));
+    }
+
 }
